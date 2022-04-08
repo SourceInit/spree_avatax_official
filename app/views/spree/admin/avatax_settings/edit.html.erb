@@ -9,7 +9,7 @@
         <div class="checkbox">
           <label>
             <%= hidden_field_tag('enabled', false) %>
-            <%= check_box_tag('enabled', true, SpreeAvataxOfficial::Config.enabled) %>
+            <%= check_box_tag('enabled', true, SpreeAvataxOfficial::Config.enabled, data: {'spree-avatax-enabled-initial-state': SpreeAvataxOfficial::Config.enabled}) %>
             <%= Spree.t('spree_avatax_official.enabled') %>
           </label>
         </div>
@@ -97,3 +97,24 @@
   <p class="form-buttons"><%= button Spree.t('spree_avatax_official.save_preferences') %></p>
   <p class="form-buttons"><%=link_to Spree.t('spree_avatax_official.ping_avatax'), :admin_avatax_ping, method: :post, class: 'btn btn-primary' %></p>
 <% end %>
+
+<%= javascript_tag type: 'application/javascript' do -%>
+  $(document).ready(function(){
+    $('#avatax_settings_form').submit( (e) => {
+      enabledState = $('input[type="checkbox"][id="enabled"]').is(':checked');
+      if (enabledState != $('input[type="checkbox"][id="enabled"]').data('spree-avatax-enabled-initial-state')) {
+        if (enabledState) {
+          message = "Before enabling, be sure you have removed all non-Avatax Tax Rates! If you wish to proceed click 'OK'."
+        } else {
+          message = "Before disabling, be sure you have removed all Avatax Tax Rates! If you wish to proceed click 'OK'."
+        };
+
+        if (!confirm(message)) {
+          e.preventDefault;
+          return false;
+        }
+      }
+    });
+  });
+<% end -%>
+  
