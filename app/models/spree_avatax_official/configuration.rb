@@ -16,5 +16,6 @@ module SpreeAvataxOfficial
     preference :endpoint,                   :string,  default: Rails.env.production? ? 'https://rest.avatax.com' : 'https://sandbox-rest.avatax.com'
     preference :license_key,                :string,  default: ''
     preference :commit_transaction_enabled, :boolean, default: true
+    preference :enforce_strict_rates,       :boolean, default: false
   end
 end

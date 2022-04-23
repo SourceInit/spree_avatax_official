@@ -52,6 +52,17 @@
       </fieldset>
 
       <fieldset>
+        <legend><%= Spree.t('spree_avatax_official.enforce_strict_rates.label') %></legend>
+        <div class="checkbox">
+          <label>
+            <%= hidden_field_tag('enforce_strict_rates', false) %>
+            <%= check_box_tag('enforce_strict_rates', true, SpreeAvataxOfficial::Config.enforce_strict_rates) %>
+            <%= Spree.t('spree_avatax_official.enforce_strict_rates.description') %>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
         <legend><%= Spree.t('spree_avatax_official.address_validation') %></legend>
         <div class="checkbox">
           <label>

@@ -38,3 +38,6 @@ en:
       avalara_entity_use_code: Avalara Entity Use Code
       ping_avatax: Ping AvaTax
       wrong_endpoint_url: Endpoint URL seems to be invalid
+      enforce_strict_rates:
+        label: Enforce strict rates
+        description: Allow only AvaTax rates when it is enabled. Remove them when it is disabled.
