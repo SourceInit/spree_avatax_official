@@ -2,11 +2,6 @@ module Spree
   module Admin
     module Orders
       module CustomerDetailsControllerDecorator
-        def self.prepended(base)
-
-        end
-
-
         def update
           params[:order][:user_id] = nil if guest_checkout?
           if @order.update(order_params)
