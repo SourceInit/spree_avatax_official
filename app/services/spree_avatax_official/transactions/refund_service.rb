@@ -12,7 +12,8 @@ module SpreeAvataxOfficial
       private
 
       def full_refund?(refundable)
-        refundable.order_inventory_units == inventory_units(refundable)
+        # If a refund is being done without any RMA, need another way to tell it is full?
+        refundable.order_inventory_units == inventory_units(refundable) || refundable.amount == refundable.payment.amount
       end
 
       def refundable_class(refundable)
@@ -24,7 +25,10 @@ module SpreeAvataxOfficial
                              when 'ReturnAuthorization'
                                refundable.inventory_units
                              when 'Refund'
-                               refundable.reimbursement.return_items.map(&:inventory_unit)
+                               # A refund can be made without having an RMA,
+                               # in which case there is no reimbursement,
+                               # no inventory_units except via the order.
+                               refundable.reimbursement&.return_items&.map(&:inventory_unit)
                              end
       end
 
